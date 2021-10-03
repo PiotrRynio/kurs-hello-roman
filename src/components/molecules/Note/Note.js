@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Title } from '../../atoms/Title/Title';
 import styled from 'styled-components';
 import DeleteButton from '../../atoms/DeleteButton/DeleteButton';
@@ -22,19 +22,14 @@ const StyledDeleteButton = styled(DeleteButton)`
   left: -40px;
 `;
 
-class Note extends Component {
-  render() {
-    return (
-      <NoteWrapper>
-        <Title>Title</Title>
-        <p>
-          Ea saepe laborum repellendus aut voluptates qui. Suscipit minima enim occaecati. Soluta nemo deleniti. Ratione eum repellat reprehenderit.
-          Ad qui inventore. Rerum et officiis. Rerum inventore dolorem aut eligendi incidunt.{' '}
-        </p>
-        <StyledDeleteButton />
-      </NoteWrapper>
-    );
-  }
-}
+const Note = ({ title = 'untitled', content = 'No content' }) => {
+  return (
+    <NoteWrapper>
+      <Title>{title}</Title>
+      <p>{content}</p>
+      <StyledDeleteButton />
+    </NoteWrapper>
+  );
+};
 
 export default Note;

@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import FormField from '../components/molecules/FormField/FormField';
 import { Button } from '../components/atoms/Button/Button';
-import { Title } from '../components/atoms/Title/Title';
-import DeleteButton from '../components/atoms/DeleteButton/DeleteButton';
+import { useSelector } from 'react-redux';
+import Note from '../components/molecules/Note/Note';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -37,28 +37,12 @@ const NotesWrapper = styled.div`
   flex-direction: column;
 `;
 
-const NoteWrapper = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-
-  h3,
-  p {
-    margin: 0;
-    color: ${({ theme }) => theme.colors.darkGrey};
-  }
-`;
-
-const StyledDeleteButton = styled(DeleteButton)`
-  position: absolute;
-  top: 20px;
-  left: -40px;
-`;
-
 export const Notes = () => {
+  const notes = useSelector((state) => state.notes);
+
   return (
     <Wrapper>
+      {/*{console.log(notes)}*/}
       <FormWrapper>
         <StyledFormField label="Title" name="title" id="title" />
         <StyledFormField isTextarea label="Content" name="content" id="content" />
@@ -67,34 +51,8 @@ export const Notes = () => {
       </FormWrapper>
 
       <NotesWrapper>
-        <NoteWrapper>
-          <Title>Title</Title>
-          <p>
-            Ea saepe laborum repellendus aut voluptates qui. Suscipit minima enim occaecati. Soluta nemo deleniti. Ratione eum repellat reprehenderit.
-            Ad qui inventore. Rerum et officiis. Rerum inventore dolorem aut eligendi incidunt.{' '}
-          </p>
-          <StyledDeleteButton />
-        </NoteWrapper>
-
-        <NoteWrapper>
-          <Title>Title</Title>
-          <p>
-            Ea saepe laborum repellendus aut voluptates qui. Suscipit minima enim occaecati. Soluta nemo deleniti. Ratione eum repellat reprehenderit.
-            Ad qui inventore. Rerum et officiis. Rerum inventore dolorem aut eligendi incidunt.{' '}
-          </p>
-          <StyledDeleteButton />
-        </NoteWrapper>
-
-        <NoteWrapper>
-          <Title>Title</Title>
-          <p>
-            Ea saepe laborum repellendus aut voluptates qui. Suscipit minima enim occaecati. Soluta nemo deleniti. Ratione eum repellat reprehenderit.
-            Ad qui inventore. Rerum et officiis. Rerum inventore dolorem aut eligendi incidunt.{' '}
-          </p>
-          <StyledDeleteButton />
-        </NoteWrapper>
+        {notes.length ? notes.map(({ content, title, id }) => <Note key={id} title={title} content={content} />) : <p>Create your first note!</p>}
       </NotesWrapper>
     </Wrapper>
   );
 };
-// {/*<Input name={name} id={id} type={type} value={value} onChange={onChange}  data-testid={label} ref={ref} />*/}
